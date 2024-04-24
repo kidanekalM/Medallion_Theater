@@ -1,0 +1,30 @@
+*{
+    box-sizing: border-box;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.wrapper{
+
+}
+.wrapper .dashboard h1{
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.ReportCont{
+    border-radius: 1rem;
+    box-shadow: 1px 1px 1px 1px grey;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: rgb(243, 243, 243);
+}
+.Report{
+    border-radius: inherit;
+    box-shadow: inherit;
+    padding: .5rem;
+    background-color: white;
+}
+.Report h2.title{
+    font-size: 1.2rem;
+}
