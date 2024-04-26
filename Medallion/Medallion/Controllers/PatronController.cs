@@ -5,6 +5,7 @@ namespace Medallion.Controllers
 {
     public class PatronController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
             return View();

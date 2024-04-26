@@ -9,7 +9,6 @@
     padding: 0 2rem;
     width: max-content;
     display: flex;
-    flex-direction:column;
     align-items: center;
     justify-content: center;
     background-color: rgb(247, 247, 247);
@@ -21,7 +20,7 @@ form{
     flex-direction: column;
     gap: 1.7rem;
     border-radius: 1rem;
-    padding: 1.5rem 3rem;
+    padding: 1.5rem 1rem;
     background-color: white;
     justify-content: flex-end;
     width:max-content;
