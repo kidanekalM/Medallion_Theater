@@ -11,4 +11,10 @@
     <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\reserve.css" />
+    <None Include="wwwroot\css\ticket.css" />
+    <None Include="wwwroot\js\reserve.js" />
+  </ItemGroup>
+
 </Project>

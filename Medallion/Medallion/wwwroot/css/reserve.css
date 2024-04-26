@@ -4,11 +4,12 @@
     margin: 0;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-.wrapper{
+.custom-wrapper{
     min-height: 100vh;
     padding: 0 2rem;
     width: max-content;
     display: flex;
+    flex-direction:column;
     align-items: center;
     justify-content: center;
     background-color: rgb(247, 247, 247);
@@ -23,6 +24,7 @@ form{
     padding: 1.5rem 3rem;
     background-color: white;
     justify-content: flex-end;
+    width:max-content;
 }
 form h1{
     font-weight: 700;

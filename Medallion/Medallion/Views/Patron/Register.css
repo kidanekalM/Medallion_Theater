@@ -59,7 +59,7 @@ input[type="text"]:focus{
     border: none;
     box-shadow: 1px 1px 1px 1px rgb(141, 141, 141);
 }
-input[value="Register"]{
+input[value="Register"] {
     background-color: orange;
     color: black;
 }

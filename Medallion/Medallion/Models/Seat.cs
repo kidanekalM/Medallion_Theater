@@ -7,5 +7,6 @@
         public string Number { get; set; }
         public double Price { get; set; }
         public Performance Performance { get; set; }   
+        public bool Status { get; set; }
     }
 }
