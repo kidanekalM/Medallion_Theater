@@ -8,5 +8,9 @@ namespace Medallion.Controllers
         {
             return View();
         }
+        public IActionResult Add()
+        {
+            return View();
+        }
     }
 }
