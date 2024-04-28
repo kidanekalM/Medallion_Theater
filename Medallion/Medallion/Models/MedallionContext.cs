@@ -4,6 +4,9 @@ namespace Medallion.Models
 {
     public class MedallionContext:DbContext
     {
+        public MedallionContext(DbContextOptions<MedallionContext> options):base(options)
+        {
+        }
         public DbSet<Performance> performances {  get; set; }
         public DbSet<Patron> patrons { get; set; }
         public DbSet<Production> productions { get; set; }

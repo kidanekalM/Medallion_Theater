@@ -2,6 +2,7 @@
 {
     public class Reservation
     {
+        public int Id { get; set; }
         public string TicketId { get; set; }
         public Patron Patron { get; set; }
         public Performance performance { get; set; }
