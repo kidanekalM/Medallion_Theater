@@ -13,7 +13,7 @@ namespace Medallion.Controllers
         }
         public IActionResult Index()
         {
-            var perf = _context.reservations.Include(p => p.Patron).Include(p=>p.performance).ToList<Reservation>();
+            var perf = _context.reservations.Include(p => p.Patron).Include(p=>p.performance).Include(p=>p.performance.production).Include(p=>p.seats).ToList<Reservation>();
             return View(perf);
         }
         [HttpGet]
@@ -45,17 +45,13 @@ namespace Medallion.Controllers
                 reservation.TicketId = reservation.seats[0].Section + Guid.NewGuid().ToString();
                 Console.WriteLine(reservation);
                 _context.reservations.Add(reservation);
-            _   context.SaveChanges();
+                _context.SaveChanges();
             return View();
             }
             else
             {
                 return View("Error! Seat Already Taken.");
             }
-            // DOes the seat exist
-            // error 
-            // not error
-            
         }
     }
 }

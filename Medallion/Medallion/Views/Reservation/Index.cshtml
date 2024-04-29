@@ -24,8 +24,8 @@
                 <tr>
                     <td>@res.TicketId</td>
                     <td>@res.Patron.FirstName</td>
-                    <td> @res.performance.Id</td>
-                    <td> @res.seats</td>
+                    <td> @res.performance.production.Name at @res.performance.dateTime  </td>
+                    <td> @res.seats[0].Section@res.seats[0].Number</td>
                     @* <td><a href="Reservat/Details/@prod.Id" class="">Details</a></td> *@
                 </tr>
             }

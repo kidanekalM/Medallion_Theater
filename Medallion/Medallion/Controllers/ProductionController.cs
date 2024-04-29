@@ -27,6 +27,30 @@ namespace Medallion.Controllers
             _context.SaveChanges();
             return View();
         }
+        [HttpPost]
+        public IActionResult Update(int id, Production updatedProduction)
+        {
+            Production production = _context.productions.Where(p => p.Id == id).FirstOrDefault();
+            if (production != null)
+            {
+                production = updatedProduction;
+                _context.productions.Update(production);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            Production production = _context.productions.Where(p => p.Id == id).FirstOrDefault();
+            if (production != null)
+            {
+                _context.productions.Remove(production);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
         public IActionResult Details(string Id)
         {
             var prod = _context.productions.Where(p => (p.Id).ToString().Equals(Id)).FirstOrDefault();

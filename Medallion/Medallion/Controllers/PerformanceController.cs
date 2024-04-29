@@ -28,60 +28,31 @@ namespace Medallion.Controllers
             performance.production = _context.productions.Where(p => (p.Id).ToString().Equals(performance.production.Id.ToString())).FirstOrDefault();
             _context.performances.Add(performance);
             _context.SaveChanges();
-            //for(var j = "A".ToCharArray()[0]; j <= "F".ToCharArray()[0]; j++)
-            //{
-            //    for(var i = 0; i < 31; i++)
-            //    {
-            //        Seat seat = new Seat()
-            //        {
-            //            Section = j.ToString(),
-            //            Number=(i+1).ToString(),
-            //            Price = 65,
-            //            Performance = performance,
-            //            Status = true
-            //        };
-            //    }
-            //}
-            //for (var j = "G".ToCharArray()[0]; j <= "N".ToCharArray()[0]; j++)
-            //{
-            //    for (var i = 0; i < 31; i++)
-            //    {
-            //        Seat seat = new Seat()
-            //        {
-            //            Section = j.ToString(),
-            //            Number = (i + 1).ToString(),
-            //            Price = 55,
-            //            Performance = performance,
-            //            Status = true
-            //        };
-            //    }
-            //}
-            //for (var j = "A".ToCharArray()[0]; j <= "F".ToCharArray()[0]; j++)
-            //{
-            //    for (var i = 0; i < 31; i++)
-            //    {
-            //        Seat seat = new Seat()
-            //        {
-            //            Section = j.ToString()+ j.ToString(),
-            //            Number = (i + 1).ToString(),
-            //            Price = 40,
-            //            Performance = performance,
-            //            Status = true
-            //        };
-            //    }
-            //}
-            //for (var i = 0; i < 15; i++)
-            //{
-            //    Seat seat = new Seat()
-            //    {
-            //        Section ="X",
-            //        Number = (i + 1).ToString(),
-            //        Price = 85,
-            //        Performance = performance,
-            //        Status = true
-            //    };
-            //}
             return View();
+        }
+        [HttpPost]
+        public IActionResult Update(int id, Performance updatedPerformance)
+        {
+            Performance performance = _context.performances.Where(p => p.Id == id).FirstOrDefault();
+            if (performance != null)
+            {
+                performance = updatedPerformance;
+                _context.performances.Update(performance);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            Performance performance = _context.performances.Where(p => p.Id == id).FirstOrDefault();
+            if (performance != null)
+            {
+                _context.performances.Remove(performance);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
         public IActionResult Details(string Id)
         {

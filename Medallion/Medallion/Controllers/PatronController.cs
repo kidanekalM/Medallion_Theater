@@ -37,15 +37,18 @@ namespace Medallion.Controllers
             Patron patron = _context.patrons.Where(p=>p.PatronId.Equals(id)).FirstOrDefault();
             return View(patron);
         }
-        [HttpPut]
-        public IActionResult Edit()
+        [HttpPost]
+        public IActionResult Edit(string id, Patron updatedPatron)
         {
-            return View();
+            _context.patrons.Update(updatedPatron);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
-        [HttpDelete]
-        public IActionResult Delete()
+        [HttpGet]
+        public IActionResult Delete(string id)
         {
-            return View();
+            Patron patron = _context.patrons.Where(p => p.PatronId.Equals(id)).FirstOrDefault();
+            return View(patron);
         }
 
 
