@@ -1,3 +1,4 @@
+@model Production
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,24 +9,24 @@
 </head>
 <body>
     <div class="wrapper">
-        <form action="" method="POST">
+        <form action="POST" method="">
             <h1>Add Production</h1>
-           @*  <div class="form-group">
+            <div class="form-group">
                 <label for="fname">Production Number</label>
-                <input type="text" class="fname" name="Id">
-            </div> *@
+                <input type="text" class="fname" value="@Model.Id">
+            </div>
             <div class="form-group">
                 <label for="fname"> Name</label>
-                <input type="text" class="fname" name="Name">
+                <input type="text" class="fname" value="@Model.Name">
             </div>
             <div class="form-group">
                 <label for="fname">Type</label>
-                <input type="text" class="fname" name="Type">
+                <input type="text" class="fname" value ="@Model.Type">
             </div>
 
             <div class="actions">
-                <input type="reset" value="Clear" class="btn_reset">
-                <input type="submit" value="Add" class="btn primary">
+                <input type="reset" value="Delete" class="btn_danger">
+                <input type="submit" value="Update" class="btn primary">
             </div>
         </form>
     </div>

@@ -33,20 +33,14 @@ for(i=0;i<seats.length;i++){
             else if(e.target.parentElement.parentElement.className == "balcony" ){
                 document.getElementById('price').value = "40"
             }
-            let a = "asd"
-            console.log(a)
-            console.log("asdfasdsdfasdasdadvasdvads")
+
             if(!(e.target.parentElement.className.includes("box"))){
                 let children = document.getElementsByClassName(e.target.parentElement.className)[0].children
                 let rowElements = Array.from(children).filter((child) => child.className == "seat" )
-                console.log(rowElements)
-                rowElements = rowElements.splice(8, 1);
-                rowElements = rowElements.splice(16, 1);
                 for (j = 0; j < rowElements.length; j++){
-                    if (rowElements[j].className != "letter")
-                    if(rowElements[j]==e.target){
+                    if (rowElements[j] === e.target) {
                         document.getElementById("txt_seat").value=(e.target.parentElement.className.toUpperCase())+(j+1)
-                    }   
+                    }
                 }
             }
         }

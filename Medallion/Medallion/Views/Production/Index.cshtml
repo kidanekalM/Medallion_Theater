@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model List<Production>
 <div class="container">
     <h2>Production List</h2>
     <div class="form-group">
@@ -18,20 +19,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>ID</td>
-                <td>John</td>
-                <td>Doe</td>
-                <td>1234567890</td>
-                <td><a href="#" class="">Details</a></td>
-            </tr>
-            <tr>
-                <td>ID</td>
-                <td>Jane</td>
-                <td>Smith</td>
-                <td>9876543210</td>
-                <td><a href="#" class="">Details</a></td>
-            </tr>
+            @foreach (var prod in Model)
+            {
+                <tr>
+                    <td>@prod.Id</td>
+                    <td>@prod.Name</td>
+                    <td>@prod.Type</td>
+                    <td><a href="Production/Details/@prod.Id" class="">Details</a></td>
+                </tr>
+            }
+
             <!-- Add more rows for additional students -->
         </tbody>
     </table>

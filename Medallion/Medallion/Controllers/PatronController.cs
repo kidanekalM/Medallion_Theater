@@ -14,7 +14,7 @@ namespace Medallion.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View(_context.patrons);
+            return View(_context.patrons.ToList<Patron>());
         }
         public IActionResult GetAll()
         {
@@ -31,6 +31,11 @@ namespace Medallion.Controllers
             _context.patrons.Add(patron);
             _context.SaveChanges();
             return View();
+        }
+        public IActionResult Details(string id)
+        {
+            Patron patron = _context.patrons.Where(p=>p.PatronId.Equals(id)).FirstOrDefault();
+            return View(patron);
         }
         [HttpPut]
         public IActionResult Edit()

@@ -7,11 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Home\Index2.cshtml" />
+    <Content Remove="wwwroot\css\index.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\Images\" />
     <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Home\Index2.cshtml" />
+    <None Include="wwwroot\css\index.css" />
     <None Include="wwwroot\css\reserve.css" />
     <None Include="wwwroot\css\ticket.css" />
     <None Include="wwwroot\js\reserve.js" />
