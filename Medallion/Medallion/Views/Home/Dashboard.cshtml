@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model List<Medallion.Models.Report>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medallion Theater</title>
+    <link rel="stylesheet" href="~/css/index.css">
+</head>
+<body>
+    <div class="wrapper">
+        <main class="dashboard">
+            <h1> Medallion Theater Report</h1>
+            <div class="ReportCont">
+                @foreach (var r in @Model)
+                {
+                    <div class="Report">
+                        <h2 class="title">@r.Type</h2>
+                        <div class="desc">@r.Data</div>
+                    </div>
+                }
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -74,3 +74,6 @@
     position: absolute;
     /* left: 40%; */
 }
+.taken{
+    background-color:gray;
+}

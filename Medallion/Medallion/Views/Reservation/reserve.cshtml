@@ -1,3 +1,4 @@
+@model string
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,27 +10,28 @@
 </head>
 <body>
     <div class="custom-wrapper d-flex p-1">
-        <form action="POST" method=""  style="height:max-content;" >
+        <form action="" method="POST" style="height:max-content;">
             <h1>Reservation</h1>
-            <div class="form-group">
+            <p class="msg danger">@Model</p>
+@*             <div class="form-group">
                 <label for="fname">Reservation Id</label>
-                <input type="text" class="fname">
-            </div>
+                <input type="text" class="fname" name="">
+            </div> *@
             <div class="form-group">
                 <label for="fname">Patron Id</label>
-                <input type="text" class="fname">
+                <input type="text" class="fname" name="Patron.patronId">
             </div>
             <div class="form-group">
                 <label for="fname">Performance Id</label>
-                <input type="text" class="fname">
+                <input type="text" class="fname" name="performance.Id">
             </div>
             <div class="form-group">
                 <label for="fname">Seat</label>
-                <input type="text" id="txt_seat" class="fname">
+                <input type="text" id="txt_seat" class="fname" name="seats[0].Section">
             </div>
             <div class="form-group">
                 <label for="fname">Price: $</label>
-                <input type="Number" id="price" disabled class="fname">
+                <input type="Number" id="price" name="seats[0].Price" disabled class="fname">
             </div>
             <div class="actions">
                 <input type="reset" value="Clear" class="btn_reset">

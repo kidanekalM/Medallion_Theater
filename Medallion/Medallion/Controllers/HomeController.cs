@@ -14,8 +14,11 @@ namespace Medallion.Controllers
             _logger = logger;
             _context = medallionContext;
         }
-
         public IActionResult Index()
+        {
+            return View();
+        }
+        public IActionResult Dashboard()
         {
             List<Report> reports = new List<Report>{
             new Report

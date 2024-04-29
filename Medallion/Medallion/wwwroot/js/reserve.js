@@ -15,10 +15,10 @@ for(i=0;i<seats.length;i++){
                 
                 for(j=0;j<=boxElements1.length;j++){
                     if(boxElements1[j]==e.target){
-                        document.getElementById("txt_seat").value="X"+(j+1)
+                        document.getElementById("txt_seat").value="X"+" "+(j+1)
                     }
                     if(boxElements2[j]==e.target){
-                        document.getElementById("txt_seat").value="X"+(j+8+1)
+                        document.getElementById("txt_seat").value="X"+" "+(j+8+1)
                     }
                 }
 
@@ -39,7 +39,7 @@ for(i=0;i<seats.length;i++){
                 let rowElements = Array.from(children).filter((child) => child.className == "seat" )
                 for (j = 0; j < rowElements.length; j++){
                     if (rowElements[j] === e.target) {
-                        document.getElementById("txt_seat").value=(e.target.parentElement.className.toUpperCase())+(j+1)
+                        document.getElementById("txt_seat").value=(e.target.parentElement.className.toUpperCase())+" "+(j+1)
                     }
                 }
             }

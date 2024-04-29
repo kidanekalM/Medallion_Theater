@@ -1,11 +1,11 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model List<Performance>
+@model List<Reservation>
 <div class="container">
-    <h2>Performance List</h2>
+    <h2>Production List</h2>
     <div class="form-group">
-        <a href="/Performance/Add" class="btn btn-primary m-3" style="background-color:orange;">Add</a>
+        <a href="/Reservation/Reserve" class="btn btn-primary m-3" style="background-color:orange;">Reserve</a>
         @* <input type="text" class="form-control w-25" id="searchInput" placeholder="Search by name"> *@
     </div>
 
@@ -13,22 +13,23 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Production</th>
-                <th>Date Time</th>
-                <th>Type</th>
+                <th>Patron</th>
+                <th>Performance</th>
+                <th>Seat</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var perf in Model)
+            @foreach (var res in Model)
             {
                 <tr>
-                    <td>@perf.Id</td>
-                    <td>@perf.production.Name</td>
-                    <td>@perf.dateTime</td>
-                    <td>@perf.Type</td>
-                    <td><a href="Performance/Details/@perf.Id" class="">Details</a></td>
+                    <td>@res.TicketId</td>
+                    <td>@res.Patron.FirstName</td>
+                    <td> @res.performance.Id</td>
+                    <td> @res.seats</td>
+                    @* <td><a href="Reservat/Details/@prod.Id" class="">Details</a></td> *@
                 </tr>
             }
+
             <!-- Add more rows for additional students -->
         </tbody>
     </table>
