@@ -29,6 +29,8 @@ namespace Medallion.Controllers
             var seat = _context.seats.Include(s => s.Performance).
                             Where(s => s.Performance.Id.Equals(reservation.performance.Id)).
                             Where(s=>(s.Section+" "+ s.Number).Equals(reservation.seats[0].Id)).FirstOrDefault();
+            var seats = reservation.seats[0].Section.Split(",");
+            Console.WriteLine(seat);
             if(seat == null)
             {
                 seat = new Seat()
@@ -46,7 +48,7 @@ namespace Medallion.Controllers
                 Console.WriteLine(reservation);
                 _context.reservations.Add(reservation);
                 _context.SaveChanges();
-            return View();
+                return View("");
             }
             else
             {
