@@ -24,36 +24,69 @@ namespace Medallion.Controllers
         [HttpPost]
         public IActionResult Reserve(Reservation reservation)
         {
+            string ErrorMessage="";
             reservation.performance = _context.performances.Where(p => (p.Id).ToString().Equals(reservation.performance.Id.ToString())).FirstOrDefault();
             reservation.Patron = _context.patrons.Where(p => p.PatronId.Equals(reservation.Patron.PatronId)).FirstOrDefault();
-            var seat = _context.seats.Include(s => s.Performance).
-                            Where(s => s.Performance.Id.Equals(reservation.performance.Id)).
-                            Where(s=>(s.Section+" "+ s.Number).Equals(reservation.seats[0].Id)).FirstOrDefault();
-            var seats = reservation.seats[0].Section.Split(",");
-            Console.WriteLine(seat);
-            if(seat == null)
+            var seats = reservation.seats[0].Section.Split(",",StringSplitOptions.RemoveEmptyEntries);
+            reservation.seats = new List<Seat>();
+            foreach(string seatName in seats)
             {
-                seat = new Seat()
+                var seater = _context.seats.ToList();
+                seater.ForEach((s) =>
                 {
-                    Section = reservation.seats[0].Section.Substring(0, reservation.seats[0].Section.IndexOf(" ")),
-                    Number = reservation.seats[0].Section.Substring(reservation.seats[0].Section.IndexOf(" ")),
-                    Performance = reservation.performance,
-                    Price = reservation.seats[0].Price,
-                };
-                reservation.seats = new List<Seat>()
+                    string v = s.Section + " " + s.Number;
+                    Console.WriteLine(v);
+
+                });
+                Console.WriteLine(seater);
+
+                var seat = _context.seats.
+                                Where(s => (s.Performance.Id==reservation.performance.Id)).
+                                Where(s=>(s.Section.Trim()+" "+ s.Number.Trim()).Equals(seatName)).FirstOrDefault();
+                if (seat == null)
                 {
-                    seat
-                };
-                reservation.TicketId = reservation.seats[0].Section + Guid.NewGuid().ToString();
-                Console.WriteLine(reservation);
-                _context.reservations.Add(reservation);
-                _context.SaveChanges();
-                return View("");
+                    seat = new Seat()
+                    {
+                        Section = reservation.seats[0].Section.Substring(0, reservation.seats[0].Section.IndexOf(" ")),
+                        Number = reservation.seats[0].Section.Substring(reservation.seats[0].Section.IndexOf(" ")),
+                        Performance = reservation.performance,
+                    };
+
+                    string section = seat.Section.ToUpper();
+
+                    if (section.CompareTo("A") >= 0 && section.CompareTo("F") <= 0)
+                    {
+                        seat.Price = 65;
+                    }
+                    else if (section.CompareTo("G") >= 0 && section.CompareTo("N") <= 0)
+                    {
+                        seat.Price = 55;
+                    }
+                    else if (section.CompareTo("AA") >= 0 && section.CompareTo("EE") <= 0)
+                    {
+                        seat.Price = 40;
+                    }
+                    else if (section == "X")
+                    {
+                        seat.Price = 85;
+                    }
+
+
+                    reservation.seats.Add(seat);
+                    reservation.TicketId = reservation.seats[0].Section + Guid.NewGuid().ToString();
+                    Console.WriteLine(reservation);
+                    _context.reservations.Add(reservation);
+                    _context.SaveChanges();
+                    //return View((object)"");
+                }
+                else
+                {
+                    ErrorMessage += seatName + " was already taken. \n";
+                }
+
             }
-            else
-            {
-                return View("Error! Seat Already Taken.");
-            }
+            Console.WriteLine(ErrorMessage);
+            return View((object)ErrorMessage);
         }
     }
 }
