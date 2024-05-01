@@ -5,7 +5,7 @@
         <div class="form-group">
             <a href="/Patron/Register" class="btn btn-primary m-3" style="background-color:orange;">Register</a>
         </div>
-
+        <input type="text" id="search" placeholder="Search for patrons..">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -20,7 +20,7 @@
             @foreach (var patron in Model)
             {
                     <tr>
-                        <td>@patron.PatronId</td>
+                        <td class="IdCont">@patron.PatronId</td>
                         <td>@patron.FirstName</td>
                         <td>@patron.LastName</td>
                         <td>@patron.CellPhone</td>
@@ -30,3 +30,20 @@
             </tbody>
         </table>
     </div>
+    
+
+    <script>
+        document.getElementById('search').addEventListener('keyup', function () {
+            let searchValue = document.getElementById('search').value.toLowerCase();
+            let tableRows = document.querySelectorAll('table tr');
+
+            for (let i = 0; i < tableRows.length; i++) {
+                let rowText = tableRows[i].textContent.toLowerCase();
+                if (rowText.indexOf(searchValue) > -1) {
+                    tableRows[i].style.display = "";
+                } else {
+                    tableRows[i].style.display = "none";
+                }
+            }
+        });
+    </script>
