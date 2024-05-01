@@ -10,6 +10,9 @@
 <body>
     <div class="wrapper">
         <form action="" method="POST">
+            @if (Model != null)
+            {
+                
             <h1>Performance Detalis</h1>
             <div class="form-group">
                 <label for="fname">Production Number</label>
@@ -28,6 +31,7 @@
                 <input type="reset" value="Delete"  class="btn-danger">
                 <input type="submit" value="Update" class="btn primary">
             </div>
+            }
         </form>
     </div>
 </body>
