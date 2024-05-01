@@ -34,21 +34,39 @@ namespace Medallion.Controllers
         }
         public IActionResult Details(string id)
         {
-            Patron patron = _context.patrons.Where(p=>p.PatronId.Equals(id)).FirstOrDefault();
+            var patron=_context.patrons.Where(p=>p.PatronId.Equals(id)).FirstOrDefault();
             return View(patron);
         }
         [HttpPost]
-        public IActionResult Edit(string id, Patron updatedPatron)
+        public IActionResult Update( Patron updatedPatron)
         {
-            _context.patrons.Update(updatedPatron);
-            _context.SaveChanges();
+            var oldPat = _context.patrons.FirstOrDefault(p => p.PatronId == updatedPatron.PatronId);
+
+            if (oldPat != null)
+            {
+                oldPat.FirstName = updatedPatron.FirstName;
+                oldPat.LastName = updatedPatron.LastName;
+                oldPat.Address = updatedPatron.Address;
+                oldPat.City = updatedPatron.City;
+                oldPat.Region = updatedPatron.Region;
+                oldPat.ZipCode = updatedPatron.ZipCode;
+                oldPat.CellPhone = updatedPatron.CellPhone;
+                oldPat.Email = updatedPatron.Email;
+
+                _context.patrons.Update(oldPat);
+                _context.SaveChanges();
+            }
+
             return RedirectToAction("Index");
         }
-        [HttpGet]
         public IActionResult Delete(string id)
         {
             Patron patron = _context.patrons.Where(p => p.PatronId.Equals(id)).FirstOrDefault();
-            return View(patron);
+            _context.patrons.Remove(patron);
+            _context.SaveChanges();
+            Redirect("https://localhost:7269/Patron");
+            return View();
+
         }
 
 

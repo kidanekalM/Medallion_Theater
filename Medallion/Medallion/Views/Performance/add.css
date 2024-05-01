@@ -63,3 +63,6 @@ input[type="text"]:focus{
     background-color: orange;
     color: black;
 }
+.btn_danger {
+    background-color: red;
+}

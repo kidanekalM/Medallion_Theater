@@ -1,4 +1,4 @@
-@model Production
+@model Performance
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,23 +9,23 @@
 </head>
 <body>
     <div class="wrapper">
-        <form action="POST" method="">
-            <h1>Production Details</h1>
+        <form action="" method="POST">
+            <h1>Performance Detalis</h1>
             <div class="form-group">
                 <label for="fname">Production Number</label>
-                <input type="text" class="fname" value="@Model.Id">
+                <input type="text" class="fname" name="production.Id" value="@Model.production.Id">
             </div>
             <div class="form-group">
-                <label for="fname"> Name</label>
-                <input type="text" class="fname" value="@Model.Name">
+                <label for="fname"> DateTime</label>
+                <input type="datetime-local" class="fname" name="dateTime" asp-for="@Model.dateTime">
             </div>
             <div class="form-group">
                 <label for="fname">Type</label>
-                <input type="text" class="fname" value ="@Model.Type">
+                <input type="text" class="fname" name="Type" value="@Model.Type">
             </div>
 
             <div class="actions">
-                <input type="reset" value="Delete" class="btn-danger">
+                <input type="reset" value="Delete"  class="btn-danger">
                 <input type="submit" value="Update" class="btn primary">
             </div>
         </form>

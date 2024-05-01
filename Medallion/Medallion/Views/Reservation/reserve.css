@@ -11,7 +11,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(247, 247, 247);
+    background-color: white;
 }
 form{
     padding: 1rem;

@@ -1,4 +1,5 @@
-﻿using Medallion.Models;
+﻿using ChapaNET;
+using Medallion.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,36 +20,44 @@ namespace Medallion.Controllers
         [HttpGet]
         public IActionResult Reserve()
         {
-            return View();
+            var reserveData = new ReserveDto();
+            reserveData.ErrorMessage = "";
+            reserveData.seats = _context.seats.Include(s=>s.Performance).ToList();
+            return View(reserveData);
         }
         [HttpPost]
-        public IActionResult Reserve(Reservation reservation)
+        public async Task<IActionResult> Reserve(Reservation reservation)
         {
-            string ErrorMessage="";
-            reservation.performance = _context.performances.Where(p => (p.Id).ToString().Equals(reservation.performance.Id.ToString())).FirstOrDefault();
-            reservation.Patron = _context.patrons.Where(p => p.PatronId.Equals(reservation.Patron.PatronId)).FirstOrDefault();
+            ReserveDto reserveDto = new ReserveDto();
+            bool Success = true;
+            var perfId = reservation.performance.Id;
+            var patId = reservation.Patron.PatronId;
+            reservation.performance = _context.performances.Where(p => (p.Id).ToString().Equals(perfId.ToString())).FirstOrDefault();
+            if(reservation.performance == null)
+            {
+                reserveDto.ErrorMessage += "Incorrect performance Id! \n";
+                Success = false;
+            }
+            reservation.Patron = _context.patrons.Where(p => p.PatronId.Equals(patId)).FirstOrDefault();
+            if(reservation.Patron == null)
+            {
+                 reserveDto.ErrorMessage += "Incorrect patron Id! \n";
+                Success = false;
+            }
             var seats = reservation.seats[0].Section.Split(",",StringSplitOptions.RemoveEmptyEntries);
             reservation.seats = new List<Seat>();
-            foreach(string seatName in seats)
+            for(var i =0;i< seats.Length;i++)
             {
-                var seater = _context.seats.ToList();
-                seater.ForEach((s) =>
-                {
-                    string v = s.Section + " " + s.Number;
-                    Console.WriteLine(v);
-
-                });
-                Console.WriteLine(seater);
-
+                var seatName = seats[i].Trim();
                 var seat = _context.seats.
-                                Where(s => (s.Performance.Id==reservation.performance.Id)).
+                                Where(s => (s.Performance.Id==perfId)).
                                 Where(s=>(s.Section.Trim()+" "+ s.Number.Trim()).Equals(seatName)).FirstOrDefault();
                 if (seat == null)
                 {
                     seat = new Seat()
                     {
-                        Section = reservation.seats[0].Section.Substring(0, reservation.seats[0].Section.IndexOf(" ")),
-                        Number = reservation.seats[0].Section.Substring(reservation.seats[0].Section.IndexOf(" ")),
+                        Section = seatName.Substring(0, seatName.IndexOf(" ")).Trim(),
+                        Number = seatName.Substring(seatName.IndexOf(" ")).Trim(),
                         Performance = reservation.performance,
                     };
 
@@ -74,19 +83,41 @@ namespace Medallion.Controllers
 
                     reservation.seats.Add(seat);
                     reservation.TicketId = reservation.seats[0].Section + Guid.NewGuid().ToString();
-                    Console.WriteLine(reservation);
-                    _context.reservations.Add(reservation);
-                    _context.SaveChanges();
-                    //return View((object)"");
                 }
                 else
                 {
-                    ErrorMessage += seatName + " was already taken. \n";
+                    reserveDto.ErrorMessage += seatName + " is not currently available. \n";
+                    Success = false;
+                }
+                if (Success)
+                {
+                    Chapa chapa = new("CHASECK_TEST-rsh3UiMpIBytuEGhtyBPKtRU6ziR7Anj");
+
+                    var ID = Chapa.GetUniqueRef();
+
+                    var Request = new ChapaRequest(
+                        amount: 0,
+                        email: "golden1flying1eagle@gmail.com",
+                        firstName: reservation.Patron.FirstName,
+                        lastName: reservation.Patron.LastName,
+                        tx_ref: ID,
+                        callback_url: "http://localhost:7269/Reservation",
+                        customDescription: "Payment for seat reservation ",
+                        customTitle:"Seat Reservation"
+                    );
+                    foreach( var seatPr in reservation.seats)
+                    {
+                        Request.Amount += seatPr.Price;
+                    }
+                    var Result = await chapa.RequestAsync(Request);
+                    Console.WriteLine(Result);
+                    _context.reservations.Add(reservation);
+                    _context.SaveChanges();
+                    return Redirect(Result.CheckoutUrl);
                 }
 
             }
-            Console.WriteLine(ErrorMessage);
-            return View((object)ErrorMessage);
+            return View((object)reserveDto);
         }
     }
 }

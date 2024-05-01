@@ -9,11 +9,11 @@
 </head>
 <body>
     <div class="wrapper" >
-        <form action="" method="post">
-            <h1>Register Patron</h1>
+        <form action="Update" method="post">
+            <h1> Patron Details</h1>
             <div class="form-group">
                 <label for="fname">Patron Number</label>
-                <input type="text" name="PatronId" class="fname" value="@Model.PatronId">
+                <input type="text" readonly name="PatronId" class="fname" value="@Model.PatronId">
             </div>
             <div class="form-group">
                 <label for="fname">First Name</label>
@@ -48,8 +48,8 @@
                 <input type="text" name="Email" class="fname" value="@Model.Email">
             </div>
             <div class="actions">
-                <input   value="Delete" style="width:10rem;" class="btn btn-danger">
-                <input type="Put" value="Update" style="width:10rem;background-color:orange;" class="btn btn_submit ">
+                <a value="Delete" href="@Url.Action("Delete","Patron",new{id = Model.PatronId})"  style="width:10rem;" class="btn btn-danger">Delete</a>
+                <input type="submit" value="Update" style="width:10rem;background-color:orange;" class="btn btn_submit ">
             </div>
         </form>
     </div>
