@@ -6,6 +6,7 @@
         public Production production{ get; set; }
         public DateTime dateTime { get; set; }
         public string Type { get; set; }
+        public BoxOfficeManager? boxOfficeManager { get; set; }
 
     }
 }

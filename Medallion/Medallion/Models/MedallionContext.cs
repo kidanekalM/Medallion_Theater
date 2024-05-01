@@ -13,5 +13,6 @@ namespace Medallion.Models
         public DbSet<Report> reports { get; set; }
         public DbSet<Seat> seats { get; set; }
         public DbSet<Reservation> reservations { get; set; }
+        public DbSet<BoxOfficeManager> boxOfficeManagers { get; set; }
     }
 }
