@@ -37,8 +37,9 @@ namespace Medallion.Controllers
             var patron=_context.patrons.Where(p=>p.PatronId.Equals(id)).FirstOrDefault();
             return View(patron);
         }
+        //Does the updating
         [HttpPost]
-        public IActionResult Update( Patron updatedPatron)
+        public IActionResult Details( Patron updatedPatron)
         {
             var oldPat = _context.patrons.FirstOrDefault(p => p.PatronId == updatedPatron.PatronId);
 
@@ -57,7 +58,7 @@ namespace Medallion.Controllers
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("Index");
+            return View("Update");
         }
         public IActionResult Delete(string id)
         {
