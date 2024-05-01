@@ -9,7 +9,10 @@
 </head>
 <body>
     <div class="wrapper" >
-        <form action="Update" method="post">
+        <form action="" method="post">
+                @{
+                    if(Model != null)
+                    {
             <h1> Patron Details</h1>
             <div class="form-group">
                 <label for="fname">Patron Number</label>
@@ -51,6 +54,10 @@
                 <a value="Delete" href="@Url.Action("Delete","Patron",new{id = Model.PatronId})"  style="width:10rem;" class="btn btn-danger">Delete</a>
                 <input type="submit" value="Update" style="width:10rem;background-color:orange;" class="btn btn_submit ">
             </div>
+                    
+        }            
+                
+    }
         </form>
     </div>
 </body>
