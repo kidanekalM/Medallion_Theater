@@ -15,6 +15,10 @@
                 
             <h1>Performance Detalis</h1>
             <div class="form-group">
+                <label for="fname">Performance Id</label>
+                    <input type="text" class="fname" name="Id" readonly value="@Model.Id">
+            </div> 
+            <div class="form-group">
                 <label for="fname">Production Number</label>
                 <input type="text" class="fname" name="production.Id" value="@Model.production.Id">
             </div>
@@ -28,7 +32,8 @@
             </div>
 
             <div class="actions">
-                <input type="reset" value="Delete"  class="btn-danger">
+                    <a value="Delete" href="@Url.Action("Delete","Performance",new{id = Model.Id})" class="btn btn-danger">Delete</a>
+                    
                 <input type="submit" value="Update" class="btn primary">
             </div>
             }

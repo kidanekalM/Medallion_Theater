@@ -30,20 +30,23 @@ namespace Medallion.Controllers
             _context.SaveChanges();
             return View();
         }
+        //Update Details
         [HttpPost]
-        public IActionResult Update(int id, Performance updatedPerformance)
+        public IActionResult Details(Performance updatedPerformance)
         {
-            Performance performance = _context.performances.Where(p => p.Id == id).FirstOrDefault();
+
+            Performance performance = _context.performances.Where(p => p.Id == updatedPerformance.Id).FirstOrDefault();
             if (performance != null)
             {
-                performance = updatedPerformance;
+                performance.production = _context.productions.Where(p => (p.Id).ToString().Equals(updatedPerformance.production.Id.ToString())).FirstOrDefault();
+                performance.dateTime = updatedPerformance.dateTime;
+                performance.Type = updatedPerformance.Type;
                 _context.performances.Update(performance);
                 _context.SaveChanges();
             }
-            return RedirectToAction("Index");
+            return View("Update");
         }
 
-        [HttpPost]
         public IActionResult Delete(int id)
         {
             Performance performance = _context.performances.Where(p => p.Id == id).FirstOrDefault();
@@ -52,7 +55,7 @@ namespace Medallion.Controllers
                 _context.performances.Remove(performance);
                 _context.SaveChanges();
             }
-            return RedirectToAction("Index");
+            return View("Delete");
         }
         public IActionResult Details(string Id)
         {
