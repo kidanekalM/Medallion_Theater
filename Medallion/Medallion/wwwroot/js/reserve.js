@@ -4,7 +4,7 @@ document.getElementById('diagram').style.display = "none"
 let seatData = JSON.parse(document.getElementById("seatData").innerText)
 
 console.log(seatData);
-
+let oldSeats = []
 let txtpId = document.getElementById('performanceId');
 txtpId.addEventListener('change', () => {
     let choosenSeats = seatData.filter(s => s.performance.id == txtpId.value.trim())
@@ -13,6 +13,7 @@ txtpId.addEventListener('change', () => {
         let num = parseInt(choosenSeats[i].number.trim())
         if (choosenSeats[i].section.trim() == "X") {
             if (num <= 8) {
+                
                 document.getElementByClassName("box")[0].children[num - 1].style.backgroundColor = "grey"
             }
             else {

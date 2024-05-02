@@ -48,7 +48,7 @@
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" name="Email" class="fname" value="@Model.Email">
+                <input type="email" name="Email" class="fname" value="@Model.Email">
             </div>
             <div class="actions">
                 <a value="Delete" href="@Url.Action("Delete","Patron",new{id = Model.PatronId})"  style="width:10rem;" class="btn btn-danger">Delete</a>
